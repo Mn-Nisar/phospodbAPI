@@ -37,6 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # external pacakges
+    'rest_framework',
+    'drf_spectacular',
+    # internal pacakges
     'phosphodb_api'
 ]
 
@@ -74,11 +78,31 @@ WSGI_APPLICATION = 'phospodb.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+'default': {
+    'ENGINE': 'django.db.backends.mysql',
+    'NAME': 'testPhospo',
+    'USER': 'admin',
+    'PASSWORD': 'ciods123',
+    'HOST': 'ciodsdb.cubtgfved0u5.us-west-1.rds.amazonaws.com',
+    'PORT': '3306',
+
+      'OPTIONS': {
+            'autocommit': True,
+        },
+        'CONN_MAX_AGE': 3600,
+        'ATOMIC_REQUESTS': True,
+        'connect_args': {
+            'pool_size': 10,
+        },
+    },
 }
 
 
@@ -122,3 +146,12 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+REST_FRAMEWORK = {"DEFAULT_SCHEMA_CLASS":"drf_spectacular.openapi.AutoSchema"}
+
+SPECTACULAR_SETTINGS = {
+    "TITLE":"PhosphoDB API",
+}
+

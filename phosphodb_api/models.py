@@ -1,6 +1,7 @@
 from django.db import models
 
 class Pmid(models.Model):
+    
     pmid = models.BigIntegerField(primary_key=True)
 
     Cell_type_disease = models.ManyToManyField("CellTypeDisease", 
@@ -25,15 +26,16 @@ class Pmid(models.Model):
 
 
 class CellTypeDisease(models.Model):
-    name = models.CharField(max_length=1000)
+    name = models.CharField(max_length=255, primary_key=True)
 
     def __str__(self):
         return self.name
     
 
 class ExpCondition(models.Model):
-    name = models.CharField(max_length=1000)
-    utf8_name = models.CharField(max_length=1000)
+    utf8_name = models.CharField(max_length=255,primary_key=True)
+    name = models.CharField(max_length=255)
+
     pmid = models.ForeignKey(Pmid, on_delete=models.PROTECT)
     mass_spec = models.ForeignKey("MassSpec", on_delete=models.PROTECT)
 
@@ -58,54 +60,54 @@ class ExpCondition(models.Model):
 
 
 class CellOrTissueChoice(models.TextChoices):
-    cell = 'cell', 'C'
-    tissue = 'tissue', 'T'
-
+    C = 'C', 'C'
+    T = 'T', 'T'
 
 class CellOrTissue(models.Model):
     c_type = models.CharField(
         max_length=25,
         choices=CellOrTissueChoice.choices,
+        primary_key=True
     )
 
     def __str__(self):
-        return self.name
+        return self.c_type
 
 
 class Enrichment(models.Model):
-    method =  models.CharField(max_length=255)
+    method =  models.CharField(max_length=255,primary_key=True)
 
     def __str__(self):
         return self.method
     
 class QuantType(models.Model):
-    name = models.CharField(max_length=1000)
+    name = models.CharField(max_length=255,primary_key=True)
 
     def __str__(self):
         return self.name
     
 class MassSpec(models.Model):
-    name = models.CharField(max_length=1000)
+    name = models.CharField(max_length=255,primary_key=True)
 
     def __str__(self):
         return self.name
 
 
 class Genes(models.Model):
-    gene_symbol = models.CharField(max_length=255)
+    gene_symbol = models.CharField(max_length=255,primary_key=True)
 
     def __str__(self):
         return self.gene_symbol
 
 class Species(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255,primary_key=True)
 
     def __str__(self):
         return self.name
 
 
 class Accession(models.Model):
-    uniprot_accession = models.CharField(max_length=255)
+    uniprot_accession = models.CharField(max_length=255,primary_key=True)
     fasta_seq = models.TextField()    
     is_isofrom=  models.BooleanField(default=False)
     refseq_accession = models.CharField(max_length=255,null=True)
@@ -126,8 +128,8 @@ class Accession(models.Model):
 
 
 class Phosphosite(models.Model):
-    
-    site = models.CharField(max_length=100)
+
+    site = models.CharField(max_length=100,primary_key=True)
 
     accession = models.ManyToManyField("Accession", 
                         through="AcceesionPhosphosites", 
@@ -154,14 +156,14 @@ class Phosphosite(models.Model):
         return self.site
 
 class LocalizationProb(models.Model):
-    value = models.CharField(max_length=255)
+    value = models.CharField(max_length=255,primary_key=True)
 
     def __str__(self):
         return self.value
     
 
 class ClassOneSite(models.Model):
-    name = models.CharField(max_length=1000)
+    name = models.CharField(max_length=255,primary_key=True)
 
     def __str__(self):
         return self.name
@@ -173,7 +175,7 @@ class ProfileOrDiffChoice(models.TextChoices):
 
 
 class ProfileOrDiff(models.Model):
-    name = models.CharField(max_length=50,choices=ProfileOrDiffChoice.choices)
+    name = models.CharField(max_length=50,choices=ProfileOrDiffChoice.choices,primary_key=True)
 
     def __str__(self):
         return self.name
@@ -191,25 +193,23 @@ class ExpressionVal(models.Model):
         return self.p_value
 
 class ExpressionStatus(models.Model):
-    expression = models.CharField(max_length=255)
+    expression = models.CharField(max_length=255,primary_key=True)
 
     def __str__(self):
         return self.expression
     
 class PeptideSequence(models.Model):
-    seq = models.CharField(max_length=1000)
+    seq = models.CharField(max_length=255,primary_key=True)
 
     def __str__(self):
         return self.seq
 
 
 class ModifSequence(models.Model):
-    seq = models.CharField(max_length=255)
+    seq = models.CharField(max_length=255,primary_key=True)
 
     def __str__(self):
         return self.seq
-    
-
 
 # ==========================All the linking table==============================
     
