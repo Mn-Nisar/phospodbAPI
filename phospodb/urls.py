@@ -6,6 +6,9 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
 router = DefaultRouter()
 router.register(r"pmid",views.PmidViewSet)
+# router.register(r"gene",views.GenesViewSet)
+router.register(r"gene",views.AccessionViewSet)
+
 
 urlpatterns = [
     path("admin/", admin.site.urls),

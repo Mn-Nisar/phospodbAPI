@@ -111,7 +111,7 @@ class Accession(models.Model):
     fasta_seq = models.TextField()    
     is_isofrom=  models.BooleanField(default=False)
     refseq_accession = models.CharField(max_length=255,null=True)
-    gene_symbol = models.ForeignKey(Genes,on_delete=models.PROTECT)
+    gene_symbol = models.ForeignKey(Genes,on_delete=models.PROTECT, related_name="gene_symbol_acc")
     species = models.ForeignKey(Species,on_delete=models.PROTECT)
 
     exp_condition = models.ManyToManyField("ExpCondition", 
@@ -181,9 +181,9 @@ class ProfileOrDiff(models.Model):
         return self.name
     
 class ExpressionVal(models.Model):
-    p_value = models.CharField(max_length=255)
-    ratio = models.CharField(max_length=255)
-    log2_fc =  models.FloatField()
+    p_value = models.CharField(max_length=255, null = True)
+    ratio = models.CharField(max_length=255, null = True)
+    log2_fc =  models.CharField(max_length=900, null = True)
 
     expression_status = models.ManyToManyField("ExpressionStatus", 
                         through="ExpressionValExpressionStatus", 

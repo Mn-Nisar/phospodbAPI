@@ -1,5 +1,4 @@
 upload data in this order 
-
 gene
 species
 accession
@@ -10,7 +9,7 @@ Enrichments
 Pmid
 MassSpec
 ExpCondition
-ExpressionStatus     # not required
+ExpressionStatus
 ExpressionVal  
 LocalizationProb
 ModifSequence
